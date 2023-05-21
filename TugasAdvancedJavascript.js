@@ -74,12 +74,12 @@ const getDataAjax = (method, url)=>{
             }, 4000)
         }    
     })
-   
 }
+
+// Point a
 
 getDataAjax('GET', 'https://pokeapi.co/api/v2/pokemon')
 .then((res)=>{
-    console.log(res)
     res.results.map((item)=>{
         console.log(`Nama : ${item.name}`)
         console.log(`Url : ${item.url}`)
@@ -89,5 +89,65 @@ getDataAjax('GET', 'https://pokeapi.co/api/v2/pokemon')
     })
 })
 .catch((err)=>{
+    console.log(err)
+})
+
+// Point b
+
+const resultDataAjax2 = async() => {
+    try {
+        const res = await getDataAjax('GET', 'https://pokeapi.co/api/v2/pokemon')
+        res.results.map((item)=> {
+            console.log(`Nama : ${item.name}`)
+            console.log(`Url : ${item.url}`)
+            const id = item.url.split('/').splice(-2)[0]
+            console.log(`Image : https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`)
+            console.log('--------------')
+        })
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+resultDataAjax2()
+
+
+// Nomor 3
+
+const generateId = (value) => {
+    return new Promise((resolve, reject) => {
+        if(typeof(value) !== 'number'){
+            reject('Parameter harus number!')
+        }
+        setTimeout (()=> {
+            const result = Math.random() * 3
+            resolve(result)
+        }, 4000)
+    })
+}
+
+generateId(5)
+.then((res)=>{
+    console.log(res)
+})
+.catch((err)=> {
+    console.log(err)
+})
+
+// Nomor 4
+
+fetch('https://jsonplaceholder.typicode.com/todos')
+
+.then((res)=> {
+    return res.json()
+})
+.then((res) => {
+    res.map((item) => {
+        console.log(`titlenya adalah : ${item.title}`)
+        console.log('-------------')
+    })
+})
+
+.catch((err) => {
     console.log(err)
 })
