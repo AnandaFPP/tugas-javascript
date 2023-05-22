@@ -1,4 +1,4 @@
-// Nomor 1
+// Nomor 1---------------------------------------------------------------
 
 //callback function
 
@@ -10,16 +10,16 @@ const getDataPosts1 = (method, url, callback) => {
         ajax.onreadystatechange = () => {
             if (ajax.status === 200) {
                 const result = JSON.parse(ajax.responseText)
-                callback(result)
+                return callback(result)
             } else {
-                callback('Data not found...')
+                return callback('Data not found...')
             }
         }
 }
 
 getDataPosts1('GET', 'https://jsonplaceholder.typicode.com/posts', (result)=>{
     result.map((item)=>{
-        console.log(`Judul : ${item.title}`)
+        console.log(`Judulnya adalah : ${item.title}`)
     })
 })
 
@@ -55,7 +55,7 @@ getDataPosts2('GET', 'https://jsonplaceholder.typicode.com/posts',)
     console.log(err)
 })
 
-// Nomor 2
+// Nomor 2----------------------------------------------------------------------
 
 const getDataAjax = (method, url)=>{
     return new Promise((resolve, reject)=>{
@@ -112,29 +112,31 @@ const resultDataAjax2 = async() => {
 resultDataAjax2()
 
 
-// Nomor 3
+// Nomor 3 --------------------------------------------------------------
 
-const generateId = (value) => {
+const generateRandomId = (value) => {
     return new Promise((resolve, reject) => {
-        if(typeof(value) !== 'number'){
-            reject('Parameter harus number!')
-        }
-        setTimeout (()=> {
-            const result = Math.random() * 3
-            resolve(result)
-        }, 4000)
+        setTimeout(() => {
+            if(typeof value !== "number") {
+                reject('Parameter harus angka!')
+            }
+            let val = "1".padEnd(value + 1, "0")
+            let randomValue = Math.floor(Math.random() * val)
+                resolve(randomValue)
+        }, 3000)
     })
 }
 
-generateId(5)
-.then((res)=>{
-    console.log(res)
+generateRandomId()
+
+.then((res) => {
+    console.log('Random number : ', res)
 })
-.catch((err)=> {
+.catch((err) => {
     console.log(err)
 })
 
-// Nomor 4
+// Nomor 4 ---------------------------------------------------------------
 
 fetch('https://jsonplaceholder.typicode.com/todos')
 
